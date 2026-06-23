@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Pernikahan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4ebd9; /* Warna background cream */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .countdown-container {
+            text-align: center;
+            max-width: 600px;
+            padding: 20px;
+            color: #4a4a4a;
+        }
+
+        /* Gaya teks judul tulisan latin/sambung */
+        .judul {
+            font-family: 'Great Vibes', cursive;
+            font-size: 55px;
+            margin-bottom: 10px;
+            color: #2c2c2c;
+        }
+
+        .deskripsi {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #6b6b6b;
+            font-weight: 300;
+        }
+
+        /* Pembungkus kotak-kotak angka */
+        .timer-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        /* Gaya kotak angka */
+        .box {
+            background-color: #9c927d; /* Warna cokelat olive sesuai gambar */
+            color: white;
+            width: 85px;
+            padding: 15px 0;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .box .angka {
+            font-size: 32px;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .box .label {
+            font-size: 12px;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="countdown-container">
+    <div class="judul">Menuju Hari Bahagia</div>
+    <div class="deskripsi">
+        Siang dan malam berganti begitu cepat, di antara saat-saat mendebarkan yang belum pernah kami rasakan sebelumnya. Kami nantikan kehadiran para keluarga dan sahabat, untuk menjadi saksi ikrar janji suci kami di hari yang bahagia.
+    </div>
+
+    <div class="timer-wrapper">
+        <div class="box">
+            <span class="angka" id="hari">00</span>
+            <span class="label">Hari</span>
+        </div>
+        <div class="box">
+            <span class="angka" id="jam">00</span>
+            <span class="label">Jam</span>
+        </div>
+        <div class="box">
+            <span class="angka" id="menit">00</span>
+            <span class="label">Menit</span>
+        </div>
+        <div class="box">
+            <span class="angka" id="detik">00</span>
+            <span class="label">Detik</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 1. ATUR TANGGAL PERNIKAHAN DI SINI (Format: Bulan Tanggal, Tahun Jam:Menit:Detik)
+    const tanggalAcara = new Date("December 31, 2026 09:00:00").getTime();
+
+    // 2. KODE HITUNG MUNDUR (Berjalan otomatis setiap 1 detik)
+    const hitungMundur = setInterval(function() {
+
+        // Ambil waktu saat ini
+        const sekarang = new Date().getTime();
+
+        // Cari selisih antara waktu acara dan waktu sekarang
+        const selisih = tanggalAcara - sekarang;
+
+        // Rumus matematika untuk mendapatkan Hari, Jam, Menit, dan Detik
+        const hari = Math.floor(selisih / (1000 * 60 * 60 * 24));
+        const jam = Math.floor((selisih % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const menit = Math.floor((selisih % (1000 * 60 * 60)) / (1000 * 60));
+        const detik = Math.floor((selisih % (1000 * 60)) / 1000);
+
+        // Tambahkan angka 0 di depan jika angka di bawah 10 (contoh: 05 Hari, 09 Jam)
+        document.getElementById("hari").innerHTML = hari < 10 ? "0" + hari : hari;
+        document.getElementById("jam").innerHTML = jam < 10 ? "0" + jam : jam;
+        document.getElementById("menit").innerHTML = menit < 10 ? "0" + menit : menit;
+        document.getElementById("detik").innerHTML = detik < 10 ? "0" + detik : detik;
+
+        // Jika hitung mundur selesai / waktu sudah lewat
+        if (selisih < 0) {
+            clearInterval(hitungMundur);
+            document.getElementById("hari").innerHTML = "00";
+            document.getElementById("jam").innerHTML = "00";
+            document.getElementById("menit").innerHTML = "00";
+            document.getElementById("detik").innerHTML = "00";
+            // Kamu bisa menambahkan teks seperti "Acara Sudah Dimulai!" jika mau
+        }
+    }, 1000);
+</script>
+
+</body>
+</html>

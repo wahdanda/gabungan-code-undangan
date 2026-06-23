@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kado Digital</title>
+    <link href="tailwind_code.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-900">
+    <main class="max-w-6xl mx-auto px-4 py-12">
+        <section class="rounded-[32px] bg-white p-8 shadow-xl ring-1 ring-slate-200">
+            <div class="text-center space-y-4">
+                <h1 class="text-4xl font-semibold text-slate-900">Kado Digital</h1>
+                <p class="mx-auto max-w-3xl text-slate-600">
+                    Doa restu anda merupakan karunia yang sangat berarti bagi kami. Dan jika memberi adalah ungkapan tanda terimakasih anda, anda dapat memberi kado secara cashless.
+                </p>
+            </div>
+            <div class="mt-10 grid gap-6 lg:grid-cols-2">
+                <article class="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+                    <div class="flex items-center gap-4">
+                        <img src="https://storage.googleapis.com/stateless-swalapatra-com/2025/09/486d1877-bri-300x158.jpg" alt="BRI" class="h-16 w-16 rounded-2xl object-cover" />
+                        <div>
+                            <p class="text-sm font-medium text-slate-500">Bank BRI</p>
+                            <p class="text-lg font-semibold text-slate-900">213201005523503</p>
+                            <p class="text-sm text-slate-600">a.n. NI WAYAN JUNIAYU PUSPITAWATI</p>
+                        </div>
+                    </div>
+                    <button type="button" onclick="copyText('213201005523503', this)" class="mt-6 inline-flex items-center justify-center rounded-full bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500">
+                        Copy Nomor Rekening
+                    </button>
+                </article>
+                <article class="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+                    <div class="flex items-center gap-4">
+                        <img src="https://storage.googleapis.com/stateless-swalapatra-com/2022/11/719b0c00-mandiri-1.png" alt="Mandiri" class="h-16 w-28 rounded-2xl object-contain bg-white p-2" />
+                        <div>
+                            <p class="text-sm font-medium text-slate-500">Bank Mandiri</p>
+                            <p class="text-lg font-semibold text-slate-900">1750000686336</p>
+                            <p class="text-sm text-slate-600">a.n. I MADE ADI ANDIKA SA</p>
+                        </div>
+                    </div>
+                    <button type="button" onclick="copyText('1750000686336', this)" class="mt-6 inline-flex items-center justify-center rounded-full bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500">
+                        Copy Nomor Rekening
+                    </button>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function copyText(value, button) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(value).catch(function() {
+                    fallbackCopy(value);
+                });
+            } else {
+                fallbackCopy(value);
+            }
+
+            const originalText = button.textContent;
+            button.textContent = 'Berhasil disalin';
+            button.disabled = true;
+            setTimeout(function() {
+                button.textContent = originalText;
+                button.disabled = false;
+            }, 1200);
+        }
+
+        function fallbackCopy(value) {
+            const textarea = document.createElement('textarea');
+            textarea.value = value;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+        }
+    </script>
+</body>
+</html>

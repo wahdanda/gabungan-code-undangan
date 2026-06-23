@@ -1,0 +1,238 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buku Tamu Digital</title>
+    <link href="tailwind_code.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4ebd9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #fcf8f2;
+            width: 100%;
+            max-width: 450px;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e0d0b8;
+            border-radius: 8px;
+            background-color: #fff;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 80px;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #cbb280;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #d4b982;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #c1a46d;
+        }
+
+        .ucapan-list {
+            margin-top: 30px;
+            max-height: 350px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .ucapan-card {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background-color: #d4b982;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 18px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .bubble {
+            background-color: white;
+            padding: 12px 15px;
+            border-radius: 0 15px 15px 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            flex-grow: 1;
+            position: relative;
+        }
+
+        .nama-tamu {
+            font-weight: bold;
+            font-size: 14px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .badge-hadir {
+            color: #d4b982;
+            font-size: 12px;
+        }
+
+        .isi-ucapan {
+            margin-top: 5px;
+            font-size: 14px;
+            color: #555;
+            word-break: break-word;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="form-group">
+        <input type="text" id="nama" placeholder="Nama Anda" required>
+    </div>
+    <div class="form-group">
+        <textarea id="ucapan" placeholder="Ucapan Dan Doa Restu" required></textarea>
+    </div>
+    <button id="btnKirim">Kirimkan Ucapan</button>
+
+    <hr style="border: 0; border-top: 1px solid #eee; margin: 25px 0;">
+
+    <div class="ucapan-list" id="daftarUcapan">
+        </div>
+</div>
+
+</body>
+<script type="module">
+    // 1. Ambil fungsi yang diperlukan HANYA dari link CDN resmi Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // 2. Konfigurasi Firebase asli sesuai project kamu
+    const firebaseConfig = {
+        apiKey: "AIzaSyB0yXNsKkBFkbhOamAPbHcOc_Glx9Gmh-8",
+        authDomain: "ucapan-pernikahan-773bc.firebaseapp.com",
+        projectId: "ucapan-pernikahan-773bc",
+        storageBucket: "ucapan-pernikahan-773bc.firebasestorage.app",
+        messagingSenderId: "186882972054",
+        appId: "1:186882972054:web:1327434c1706b7030025b7"
+    };
+
+    // 3. Inisialisasi Firebase & Firestore
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const ucapanCollection = collection(db, "ucapan_pernikahan");
+
+    // ELEMEN HTML
+    const namaInput = document.getElementById('nama');
+    const ucapanInput = document.getElementById('ucapan');
+    const btnKirim = document.getElementById('btnKirim');
+    const daftarUcapan = document.getElementById('daftarUcapan');
+
+    // 4. FUNGSI KIRIM DATA (Menyimpan ke Database)
+    btnKirim.addEventListener('click', async () => {
+        const nama = namaInput.value.trim();
+        const ucapan = ucapanInput.value.trim();
+
+        if(nama === "" || ucapan === "") {
+            alert("Silakan isi nama dan ucapan terlebih dahulu!");
+            return;
+        }
+
+        try {
+            await addDoc(ucapanCollection, {
+                nama: nama,
+                ucapan: ucapan,
+                timestamp: new Date()
+            });
+
+            // Kosongkan form setelah berhasil kirim
+            namaInput.value = "";
+            ucapanInput.value = "";
+        } catch (error) {
+            console.error("Gagal mengirim ucapan: ", error);
+        }
+    });
+
+    // 5. FUNGSI AMBIL DATA (Real-time mendengarkan perubahan database)
+    const q = query(ucapanCollection, orderBy("timestamp", "desc"));
+    
+    onSnapshot(q, (snapshot) => {
+        daftarUcapan.innerHTML = ""; // Bersihkan list lama sebelum digambar ulang
+        
+        snapshot.forEach((doc) => {
+            const data = doc.data();
+            
+            // Membuat elemen HTML untuk setiap ucapan
+            const card = document.createElement('div');
+            card.className = 'ucapan-card';
+            card.innerHTML = `
+                <div class="avatar">💬</div>
+                <div class="bubble">
+                    <div class="nama-tamu">
+                        ${escapeHTML(data.nama)} 
+                        <span class="badge-hadir">✔</span>
+                    </div>
+                    <div class="isi-ucapan">${escapeHTML(data.ucapan)}</div>
+                </div>
+            `;
+            daftarUcapan.appendChild(card);
+        });
+    });
+
+    // Fungsi keamanan tambahan (XSS Protection)
+    function escapeHTML(str) {
+        if (!str) return '';
+        return str.replace(/[&<>'"]/g, 
+            tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+        );
+    }
+</script>
+</html>
