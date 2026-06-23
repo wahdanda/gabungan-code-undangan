@@ -141,6 +141,13 @@
     <div class="form-group">
         <textarea id="ucapan" placeholder="Ucapan Dan Doa Restu" required></textarea>
     </div>
+    <div class="form-group mb-4 w-full">
+        <select id="konfir" class="waci_comment wdp-select" name="konfirmasi" required style="width: 100%; padding: 12px; border: 1px solid #e0d0b8; border-radius: 8px; background-color: #fff; font-size: 14px; color: #333; outline: none; box-sizing: border-box;">
+            <option value="" disabled selected>Konfirmasi Kehadiran (attendance)</option>
+            <option value="Hadir (accept with pleasure)">Hadir (accept with pleasure)</option>
+            <option value="Tidak hadir (decline with regret)">Tidak hadir (decline with regret)</option>
+        </select>
+    </div>
     <button id="btnKirim">Kirimkan Ucapan</button>
 
     <hr style="border: 0; border-top: 1px solid #eee; margin: 25px 0;">
@@ -173,6 +180,7 @@
     // ELEMEN HTML
     const namaInput = document.getElementById('nama');
     const ucapanInput = document.getElementById('ucapan');
+    const konfirInpu =document.getElementById('konfir')
     const btnKirim = document.getElementById('btnKirim');
     const daftarUcapan = document.getElementById('daftarUcapan');
 
@@ -180,22 +188,30 @@
     btnKirim.addEventListener('click', async () => {
         const nama = namaInput.value.trim();
         const ucapan = ucapanInput.value.trim();
+        const konfir = konfirInpu.value.trim();
 
         if(nama === "" || ucapan === "") {
             alert("Silakan isi nama dan ucapan terlebih dahulu!");
             return;
         }
 
+        if(konfir == ""){
+            alert("solahkan masukan konfirmasi kehadiran");
+            return
+        }
+
         try {
             await addDoc(ucapanCollection, {
                 nama: nama,
                 ucapan: ucapan,
+                konfir: konfir,
                 timestamp: new Date()
             });
 
             // Kosongkan form setelah berhasil kirim
             namaInput.value = "";
             ucapanInput.value = "";
+            konfirInpu.value = "";
         } catch (error) {
             console.error("Gagal mengirim ucapan: ", error);
         }
@@ -218,7 +234,7 @@
                 <div class="bubble">
                     <div class="nama-tamu">
                         ${escapeHTML(data.nama)} 
-                        <span class="badge-hadir">✔</span>
+                        <span class="badge-hadir">✔${escapeHTML(data.konfir)}</span>
                     </div>
                     <div class="isi-ucapan">${escapeHTML(data.ucapan)}</div>
                 </div>
