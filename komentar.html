@@ -41,11 +41,6 @@
             font-size: 14px;
         }
 
-        textarea {
-            resize: vertical;
-            height: 80px;
-        }
-
         input:focus, textarea:focus {
             outline: none;
             border-color: #cbb280;
@@ -68,9 +63,19 @@
             background-color: #c1a46d;
         }
 
+        .counter-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #8a7350;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
         .ucapan-list {
-            margin-top: 30px;
-            max-height: 350px;
+            max-height: 400px;
             overflow-y: auto;
             padding-right: 5px;
         }
@@ -78,68 +83,120 @@
         .ucapan-card {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             animation: fadeIn 0.5s ease;
+            border-bottom: 1px solid #f0e6d2;
+            padding-bottom: 15px;
+        }
+
+        .ucapan-card:last-child {
+            border-bottom: none;
         }
 
         .avatar {
             width: 40px;
             height: 40px;
-            background-color: #d4b982;
+            background-color: #e8dcbf;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
+            color: #8a7350;
             font-size: 18px;
             margin-right: 12px;
             flex-shrink: 0;
         }
 
         .bubble {
-            background-color: white;
-            padding: 12px 15px;
-            border-radius: 0 15px 15px 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
             flex-grow: 1;
-            position: relative;
         }
 
         .nama-tamu {
             font-weight: bold;
             font-size: 14px;
-            color: #333;
+            color: #4a3c28;
             display: flex;
             align-items: center;
-            gap: 5px;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
+        /* Desain badge mirip contoh gambar */
+        .badge-konfir {
+            font-size: 11px;
+            font-weight: normal;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
         .badge-hadir {
-            color: #d4b982;
-            font-size: 12px;
+            background-color: #8a7655; /* Warna kecokelatan untuk Hadir */
+        }
+
+        .badge-tidak-hadir {
+            background-color: #a38260; /* Warna alternatif untuk Tidak Hadir */
+        }
+
+        /* Styling Informasi Waktu */
+        .waktu-kirim {
+            font-size: 11px;
+            color: #998467;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 2px;
+            margin-bottom: 6px;
         }
 
         .isi-ucapan {
-            margin-top: 5px;
-            font-size: 14px;
+            font-size: 13px;
             color: #555;
             word-break: break-word;
+            line-height: 1.4;
         }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        .pagination-btn {
+            padding: 5px 12px;
+            border: 1px solid #e0d0b8;
+            background-color: white;
+            color: #8a7350;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: normal;
+            width: auto;
+            cursor: pointer;
+        }
+        .pagination-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <div class="counter-title">
+        <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
+	        <path d="M0 0h24v24H0z" fill="none" />
+	        <path fill="currentColor" d="m23 11.5l-3.05-1.13c-.26-1.15-.91-1.81-.91-1.81a4.19 4.19 0 0 0-5.93 0l-1.48 1.48L5 3c-1 4 0 8 2.45 11.22L2 19.5s8.89 2 14.07-2.05c2.76-2.16 3.38-3.42 3.77-4.75zm-5.29.22c-.39.39-1.03.39-1.42 0a.996.996 0 0 1 0-1.41c.39-.39 1.03-.39 1.42 0s.39 1.02 0 1.41" />
+        </svg>
+        <span id="totalUcapanText">0 Wishes (Wishes)</span>
+    </div>
+    <hr>
     <div class="form-group">
         <input type="text" id="nama" placeholder="Nama Anda" required>
     </div>
     <div class="form-group">
-        <textarea id="ucapan" placeholder="Ucapan Dan Doa Restu" required></textarea>
+        <input type="text" id="ucapan" placeholder="Ucapan Dan Doa Restu" required>
     </div>
     <div class="form-group mb-4 w-full">
         <select id="konfir" class="waci_comment wdp-select" name="konfirmasi" required style="width: 100%; padding: 12px; border: 1px solid #e0d0b8; border-radius: 8px; background-color: #fff; font-size: 14px; color: #333; outline: none; box-sizing: border-box;">
@@ -149,20 +206,20 @@
         </select>
     </div>
     <button id="btnKirim">Kirimkan Ucapan</button>
-
     <hr style="border: 0; border-top: 1px solid #eee; margin: 25px 0;">
-
-    <div class="ucapan-list" id="daftarUcapan">
-        </div>
+    <div class="ucapan-list" id="daftarUcapan"></div>
+    <div style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 20px; font-size: 13px; color: #8a7350;">
+        <button id="btnPrev" class="pagination-btn" disabled>&larr; Previous</button>
+        <span id="pageInfo">1</span>
+        <button id="btnNext" class="pagination-btn">Next &rarr;</button>
+    </div>
 </div>
 
 </body>
 <script type="module">
-    // 1. Ambil fungsi yang diperlukan HANYA dari link CDN resmi Firebase
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, collection, addDoc, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, query, orderBy, limit, startAfter, getDocs, getCountFromServer } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    // 2. Konfigurasi Firebase asli sesuai project kamu
     const firebaseConfig = {
         apiKey: "AIzaSyB0yXNsKkBFkbhOamAPbHcOc_Glx9Gmh-8",
         authDomain: "ucapan-pernikahan-773bc.firebaseapp.com",
@@ -172,19 +229,149 @@
         appId: "1:186882972054:web:1327434c1706b7030025b7"
     };
 
-    // 3. Inisialisasi Firebase & Firestore
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const ucapanCollection = collection(db, "ucapan_pernikahan");
 
-    // ELEMEN HTML
     const namaInput = document.getElementById('nama');
     const ucapanInput = document.getElementById('ucapan');
-    const konfirInpu =document.getElementById('konfir')
+    const konfirInpu = document.getElementById('konfir');
     const btnKirim = document.getElementById('btnKirim');
     const daftarUcapan = document.getElementById('daftarUcapan');
+    const totalUcapanText = document.getElementById('totalUcapanText');
+    
+    const btnPrev = document.getElementById('btnPrev');
+    const btnNext = document.getElementById('btnNext');
+    const pageInfo = document.getElementById('pageInfo');
 
-    // 4. FUNGSI KIRIM DATA (Menyimpan ke Database)
+    const itemPerPage = 4;
+    let pageHistory = [];  
+    let currentPageIndex = 0;
+
+    // FUNGSI UNTUK MENGULID (CONVERT) SELISIH WAKTU KE TEKS "X MENIT LALU"
+    function formatWaktu(timestamp) {
+        if (!timestamp) return "baru saja";
+        
+        // Mengubah Firestore Timestamp menjadi objek waktu JavaScript biasa
+        const dateKirim = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+        const sekarang = new Date();
+        const selisihDetik = Math.floor((sekarang - dateKirim) / 1000);
+
+        if (selisihDetik < 60) {
+            return "baru saja";
+        }
+
+        const selisihMenit = Math.floor(selisihDetik / 60);
+        if (selisihMenit < 60) {
+            return `${selisihMenit} menit lalu`;
+        }
+
+        const selisihJam = Math.floor(selisihMenit / 60);
+        if (selisihJam < 24) {
+            return `${selisihJam} jam lalu`;
+        }
+
+        const selisihHari = Math.floor(selisihJam / 24);
+        if (selisihHari < 30) {
+            return `${selisihHari} hari lalu`;
+        }
+
+        const selisihBulan = Math.floor(selisihHari / 30);
+        return `${selisihBulan} bulan lalu`;
+    }
+
+    async function updateCounter() {
+        try {
+            const snapshot = await getCountFromServer(ucapanCollection);
+            const totalCount = snapshot.data().count;
+            totalUcapanText.innerText = `${totalCount} Wishes (Wishes)`;
+        } catch (error) {
+            console.error("Gagal menghitung jumlah ucapan: ", error);
+        }
+    }
+
+    async function muatHalaman() {
+        let q = query(ucapanCollection, orderBy("timestamp", "desc"), limit(itemPerPage));
+        
+        if (currentPageIndex > 0 && pageHistory[currentPageIndex - 1]) {
+            q = query(ucapanCollection, orderBy("timestamp", "desc"), startAfter(pageHistory[currentPageIndex - 1]), limit(itemPerPage));
+        }
+
+        try {
+            const snapshot = await getDocs(q);
+            daftarUcapan.innerHTML = "";
+
+            if (snapshot.empty) {
+                daftarUcapan.innerHTML = "<p style='text-align:center; font-size:13px; color:#999;'>Belum ada ucapan di halaman ini.</p>";
+                btnNext.disabled = true;
+                return;
+            }
+
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                
+                // Menentukan class warna badge berdasarkan pilihan kehadiran
+                const isHadir = data.konfir && data.konfir.includes("Hadir");
+                const badgeClass = isHadir ? "badge-hadir" : "badge-tidak-hadir";
+
+                const card = document.createElement('div');
+                card.className = 'ucapan-card';
+                card.innerHTML = `
+                    <div class="avatar">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                            <path d="M0 0h24v24H0z" fill="none" />
+                            <path fill="currentColor" d="M12 3c5.5 0 10 3.58 10 8s-4.5 8-10 8c-1.24 0-2.43-.18-3.53-.5C5.55 21 2 21 2 21c2.33-2.33 2.7-3.9 2.75-4.5C3.05 15.07 2 13.13 2 11c0-4.42 4.5-8 10-8" />
+                        </svg>
+                    </div>
+                    <div class="bubble">
+                        <div class="nama-tamu">
+                            ${escapeHTML(data.nama)} 
+                            <span class="badge-konfir ${badgeClass}">✓ ${escapeHTML(data.konfir || 'Hadir')}</span>
+                        </div>
+                        <div class="waktu-kirim">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path fill="currentColor" d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,20a9,9,0,1,1,9-9A9,9,0,0,1,12,21Z" />
+                                <rect width="2" height="7" x="11" y="6" fill="currentColor" rx="1">
+                                    <animateTransform attributeName="transform" dur="9s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12" />
+                                </rect>
+                                <rect width="2" height="9" x="11" y="11" fill="currentColor" rx="1">
+                                    <animateTransform attributeName="transform" dur="0.75s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12" />
+                                </rect>
+                            </svg>
+                            ${formatWaktu(data.timestamp)}
+                        </div>
+                        <div class="isi-ucapan">${escapeHTML(data.ucapan)}</div>
+                    </div>
+                `;
+                daftarUcapan.appendChild(card);
+            });
+
+            pageHistory[currentPageIndex] = snapshot.docs[snapshot.docs.length - 1];
+            pageInfo.innerText = currentPageIndex + 1;
+            btnPrev.disabled = (currentPageIndex === 0);
+            
+            const qNextCheck = query(ucapanCollection, orderBy("timestamp", "desc"), startAfter(pageHistory[currentPageIndex]), limit(1));
+            const nextSnapshot = await getDocs(qNextCheck);
+            btnNext.disabled = nextSnapshot.empty;
+
+        } catch (error) {
+            console.error("Gagal memuat data: ", error);
+        }
+    }
+
+    btnNext.addEventListener('click', () => {
+        currentPageIndex++;
+        muatHalaman();
+    });
+
+    btnPrev.addEventListener('click', () => {
+        if (currentPageIndex > 0) {
+            currentPageIndex--;
+            muatHalaman();
+        }
+    });
+
     btnKirim.addEventListener('click', async () => {
         const nama = namaInput.value.trim();
         const ucapan = ucapanInput.value.trim();
@@ -196,8 +383,8 @@
         }
 
         if(konfir == ""){
-            alert("solahkan masukan konfirmasi kehadiran");
-            return
+            alert("Silakan masukkan konfirmasi kehadiran");
+            return;
         }
 
         try {
@@ -205,45 +392,25 @@
                 nama: nama,
                 ucapan: ucapan,
                 konfir: konfir,
-                timestamp: new Date()
+                timestamp: new Date() // Menyimpan waktu kirim saat ini
             });
 
-            // Kosongkan form setelah berhasil kirim
             namaInput.value = "";
             ucapanInput.value = "";
             konfirInpu.value = "";
+            
+            currentPageIndex = 0;
+            pageHistory = [];
+            await updateCounter();
+            muatHalaman();
         } catch (error) {
             console.error("Gagal mengirim ucapan: ", error);
         }
     });
 
-    // 5. FUNGSI AMBIL DATA (Real-time mendengarkan perubahan database)
-    const q = query(ucapanCollection, orderBy("timestamp", "desc"));
-    
-    onSnapshot(q, (snapshot) => {
-        daftarUcapan.innerHTML = ""; // Bersihkan list lama sebelum digambar ulang
-        
-        snapshot.forEach((doc) => {
-            const data = doc.data();
-            
-            // Membuat elemen HTML untuk setiap ucapan
-            const card = document.createElement('div');
-            card.className = 'ucapan-card';
-            card.innerHTML = `
-                <div class="avatar">💬</div>
-                <div class="bubble">
-                    <div class="nama-tamu">
-                        ${escapeHTML(data.nama)} 
-                        <span class="badge-hadir">✔${escapeHTML(data.konfir)}</span>
-                    </div>
-                    <div class="isi-ucapan">${escapeHTML(data.ucapan)}</div>
-                </div>
-            `;
-            daftarUcapan.appendChild(card);
-        });
-    });
+    updateCounter();
+    muatHalaman();
 
-    // Fungsi keamanan tambahan (XSS Protection)
     function escapeHTML(str) {
         if (!str) return '';
         return str.replace(/[&<>'"]/g, 
