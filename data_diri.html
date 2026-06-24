@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pawiwahan</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="tailwind_code.css">
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f4ebd9;
+            color: #4a3c28;
+        }
+        .font-serif-wedding {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        .font-signature {
+            font-family: 'Great Vibes', cursive;
+        }
+        /* Efek Transisi Hilang untuk Cover Modals */
+        .removeModals {
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.8s ease-in-out;
+            transform: translateY(-100%);
+        }
+        /* Animasi Putar Musik */
+        .spin {
+            animation: spin 4s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="min-h-screen overflow-hidden">
+
+    <div id="welcomeModal" class="fixed inset-0 z-50 flex flex-col justify-center items-center px-6 bg-cover bg-center text-center transition-all duration-700" style="background-image: linear-gradient(rgba(252, 248, 242, 0.85), rgba(244, 235, 217, 0.95)), url('https://storage.googleapis.com/stateless-swalapatra-com/2022/11/e3661949-frame-boho-brown-newest.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
+        <div class="max-w-md w-full bg-[#fcf8f2]/90 p-8 rounded-3xl shadow-xl border border-[#e0d0b8] backdrop-blur-sm">
+            <p class="text-xs uppercase tracking-widest text-[#8a7350] font-medium mb-2">Dear Bpk/Ibu/Saudara/i</p>
+            <h2 id="namaTamu" class="font-serif-wedding text-2xl md:text-3xl font-bold text-[#4a3c28] my-4 capitalize">
+                stt genia giri suci wanayu
+            </h2>
+            <p class="text-xs text-[#9c8461] italic mb-6">Mohon maaf apabila ada kesalahan penulisan nama & gelar</p>
+            <button id="btnBukaUndangan" class="inline-flex items-center gap-2 bg-[#d4b982] hover:bg-[#c1a46d] text-white px-6 py-3 rounded-full font-semibold shadow-md transition-all duration-300 transform hover:scale-105 cursor-pointer">
+                <i class="far fa-envelope-open"></i>
+                Buka Undangan
+            </button>
+        </div>
+    </div>
+
+    <div id="audio-container" class="fixed bottom-5 right-5 z-40">
+        <audio id="song" loop>
+            <source src="https://myevent.id/master/music/The%20Overtunes-%20I%20still%20love%20you.mp3" type="audio/mp3">
+        </audio>  
+        <button id="btnAudioControl" class="w-12 h-12 bg-[#d4b982] text-white rounded-full flex items-center justify-center shadow-lg hover:bg-[#c1a46d] transition-all cursor-pointer">
+            <i id="audioIcon" class="fas fa-music spin"></i>
+        </button>
+    </div>
+
+    <main class="mx-auto px-4 py-12 text-center flex flex-col items-center justify-center min-h-screen">
+        <div class="mb-6 flex justify-center">
+            <img decoding="async" width="220" src="https://storage.googleapis.com/stateless-swalapatra-com/2022/11/f0d2129c-om-swastyastu.png" alt="Om Swastyastu" class="h-auto">
+        </div>
+        
+        <p class="text-sm md:text-base leading-relaxed text-[#5a4b36] max-w-md mb-8 font-serif-wedding px-2">
+            Atas Asung Kertha Wara Nugraha Ida Sang Hyang Widhi Wasa / Tuhan Yang Maha Esa, kami bermaksud mengundang Bapak/Ibu/Saudara/i pada Upacara Manusa Yadnya Pawiwahan putra dan putri kami.
+        </p>
+        
+        <div class="mb-6 w-48 flex justify-center">
+            <img decoding="async" src="https://storage.googleapis.com/stateless-swalapatra-com/2023/02/7fd633a3-leaves-gold-divider.png" alt="divider" class="w-full h-auto">
+        </div>
+        
+        <h1 class="font-signature text-5xl text-[#8a7350] mb-12">Pawiwahan</h1>
+
+<div class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-center justify-center gap-8 md:gap-14 w-full max-w-7xl mx-auto px-4 py-10">
+    
+    <div class="w-full max-w-[32rem] justify-self-center md:justify-self-end bg-white/90 backdrop-blur-sm p-8 md:p-10 rounded-3xl shadow-xl border border-[#e0d0b8]/60 flex flex-col items-center text-center">
+        <div class="relative w-64 h-64 bg-contain bg-no-repeat bg-center flex items-center justify-center mb-6" style="background-image: url('https://storage.googleapis.com/stateless-swalapatra-com/2022/11/e3661949-frame-boho-brown-newest.png');">
+            <div class="w-60 h-60 rounded-full overflow-hidden border border-[#e0d0b8] shadow-inner mt-2 -z-1">
+                <img src="https://images.unsplash.com/photo-1532712938310-34cb3982ef74?q=80&w=500" alt="Foto M. Pria" class="w-full h-full object-cover">
+            </div>
+        </div>
+        
+        <h3 class="font-serif-wedding text-2xl font-bold text-[#4a3c28] tracking-wide capitalize mb-3 px-2">
+            i made adi andika saputra
+        </h3>
+        <p class="text-sm leading-relaxed text-[#6b5941]">
+            Putra kedua dari pasangan:<br>
+            <span class="font-semibold text-[#4a3c28] uppercase text-xs md:text-sm tracking-wider block my-1">I Ketut Kambar Budiana</span>
+            <span class="text-xs">&</span><br>
+            <span class="font-semibold text-[#4a3c28] uppercase text-xs md:text-sm tracking-wider block my-1">Ni Made Sentiani</span>
+            <span class="text-xs md:text-sm italic text-[#8a7350] block mt-2">Br. Wanayu, Bedulu</span>
+        </p>
+    </div>
+
+    <div class="font-serif-wedding text-5xl font-light text-[#d4b982] my-4 md:my-0 animate-pulse text-center px-4">&</div>
+
+    <div class="w-full max-w-[32rem] justify-self-center md:justify-self-start bg-white/90 backdrop-blur-sm p-8 md:p-10 rounded-3xl shadow-xl border border-[#e0d0b8]/60 flex flex-col items-center text-center">
+        <div class="relative w-64 h-64 bg-contain bg-no-repeat bg-center flex items-center justify-center mb-6" style="background-image: url('https://storage.googleapis.com/stateless-swalapatra-com/2022/11/e3661949-frame-boho-brown-newest.png');">
+            <div class="w-60 h-60 rounded-full overflow-hidden border border-[#e0d0b8] shadow-inner mt-2 -z-1">
+                <img src="https://images.unsplash.com/photo-1591604466107-ec97de577aff?q=80&w=500" alt="Foto M. Wanita" class="w-full h-full object-cover">
+            </div>
+        </div>
+        
+        <h3 class="font-serif-wedding text-2xl font-bold text-[#4a3c28] tracking-wide capitalize mb-3 px-2">
+            ni wayan juni ayu puspitawati, S.Ak
+        </h3>
+        <p class="text-sm leading-relaxed text-[#6b5941]">
+            Putri pertama dari pasangan:<br>
+            <span class="font-semibold text-[#4a3c28] uppercase text-xs md:text-sm tracking-wider block my-1">I Wayan Asa Pujana (Alm)</span>
+            <span class="text-xs">&</span><br>
+            <span class="font-semibold text-[#4a3c28] uppercase text-xs md:text-sm tracking-wider block my-1">Ni Ketut Reniati</span>
+            <span class="text-xs md:text-sm italic text-[#8a7350] block mt-2">Br. Jageperang, Sidan, Gianyar</span>
+        </p>
+    </div>
+</div>
+    </main>
+
+    <script>
+        // Ambil Data Nama dari Parameter URL (?to=Nama+Tamu) secara Otomatis
+        function getGuestName() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const guestName = urlParams.get('to');
+            if (guestName) {
+                document.getElementById('namaTamu').innerText = decodeURIComponent(guestName);
+            }
+        }
+        
+        getGuestName();
+
+        const welcomeModal = document.getElementById('welcomeModal');
+        const btnBukaUndangan = document.getElementById('btnBukaUndangan');
+        const song = document.getElementById('song');
+        const btnAudioControl = document.getElementById('btnAudioControl');
+        const audioIcon = document.getElementById('audioIcon');
+
+        btnBukaUndangan.addEventListener('click', () => {
+            welcomeModal.classList.add('removeModals');
+            document.body.classList.remove('overflow-hidden');
+            song.play().catch(error => console.log("Autoplay diblokir browser, memerlukan interaksi user."));
+        });
+
+        btnAudioControl.addEventListener('click', () => {
+            if (song.paused) {
+                song.play();
+                audioIcon.className = "fas fa-music spin";
+            } else {
+                song.pause();
+                audioIcon.className = "fas fa-volume-xmark";
+            }
+        });
+    </script>
+</body>
+</html>
