@@ -4,214 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buku Tamu Digital</title>
-    <link href="tailwind_code.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4ebd9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            background-color: #fcf8f2;
-            width: 100%;
-            max-width: 450px;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            box-sizing: border-box;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #e0d0b8;
-            border-radius: 8px;
-            background-color: #fff;
-            box-sizing: border-box;
-            font-size: 14px;
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: #cbb280;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #d4b982;
-            color: white;
-            border: none;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        button:hover {
-            background-color: #c1a46d;
-        }
-
-        .counter-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #8a7350;
-            margin-top: 25px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .ucapan-list {
-            max-height: 400px;
-            overflow-y: auto;
-            padding-right: 5px;
-        }
-
-        .ucapan-card {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 20px;
-            animation: fadeIn 0.5s ease;
-            border-bottom: 1px solid #f0e6d2;
-            padding-bottom: 15px;
-        }
-
-        .ucapan-card:last-child {
-            border-bottom: none;
-        }
-
-        .avatar {
-            width: 40px;
-            height: 40px;
-            background-color: #e8dcbf;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #8a7350;
-            font-size: 18px;
-            margin-right: 12px;
-            flex-shrink: 0;
-        }
-
-        .bubble {
-            flex-grow: 1;
-        }
-
-        .nama-tamu {
-            font-weight: bold;
-            font-size: 14px;
-            color: #4a3c28;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        /* Desain badge mirip contoh gambar */
-        .badge-konfir {
-            font-size: 11px;
-            font-weight: normal;
-            padding: 2px 8px;
-            border-radius: 4px;
-            color: white;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-        
-        .badge-hadir {
-            background-color: #8a7655; /* Warna kecokelatan untuk Hadir */
-        }
-
-        .badge-tidak-hadir {
-            background-color: #a38260; /* Warna alternatif untuk Tidak Hadir */
-        }
-
-        /* Styling Informasi Waktu */
-        .waktu-kirim {
-            font-size: 11px;
-            color: #998467;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            margin-top: 2px;
-            margin-bottom: 6px;
-        }
-
-        .isi-ucapan {
-            font-size: 13px;
-            color: #555;
-            word-break: break-word;
-            line-height: 1.4;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .pagination-btn {
-            padding: 5px 12px;
-            border: 1px solid #e0d0b8;
-            background-color: white;
-            color: #8a7350;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: normal;
-            width: auto;
-            cursor: pointer;
-        }
-        .pagination-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body>
+<body class="bg-[#f4ebd9] flex justify-center items-center min-h-screen m-0 p-5 font-sans">
 
-<div class="container">
-    <div class="counter-title">
+<div class="bg-[#fcf8f2] w-full max-w-[450px] p-[30px] rounded-[20px] shadow-[0_10px_25px_rgba(0,0,0,0.05)] box-border">
+    <div class="text-[16px] font-semibold text-[#8a7350] mt-[25px] mb-[15px] flex items-center gap-[6px]">
         <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
-	        <path d="M0 0h24v24H0z" fill="none" />
-	        <path fill="currentColor" d="m23 11.5l-3.05-1.13c-.26-1.15-.91-1.81-.91-1.81a4.19 4.19 0 0 0-5.93 0l-1.48 1.48L5 3c-1 4 0 8 2.45 11.22L2 19.5s8.89 2 14.07-2.05c2.76-2.16 3.38-3.42 3.77-4.75zm-5.29.22c-.39.39-1.03.39-1.42 0a.996.996 0 0 1 0-1.41c.39-.39 1.03-.39 1.42 0s.39 1.02 0 1.41" />
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path fill="currentColor" d="m23 11.5l-3.05-1.13c-.26-1.15-.91-1.81-.91-1.81a4.19 4.19 0 0 0-5.93 0l-1.48 1.48L5 3c-1 4 0 8 2.45 11.22L2 19.5s8.89 2 14.07-2.05c2.76-2.16 3.38-3.42 3.77-4.75zm-5.29.22c-.39.39-1.03.39-1.42 0a.996.996 0 0 1 0-1.41c.39-.39 1.03-.39 1.42 0s.39 1.02 0 1.41" />
         </svg>
         <span id="totalUcapanText">0 Wishes (Wishes)</span>
     </div>
-    <hr>
-    <div class="form-group">
-        <input type="text" id="nama" placeholder="Nama Anda" required>
+    
+    <hr class="border-gray-200 mb-4">
+    
+    <div class="mb-[15px]">
+        <input type="text" id="nama" placeholder="Nama Anda" required class="w-full p-[12px] border border-[#e0d0b8] rounded-[8px] bg-white text-[14px] box-border outline-none focus:border-[#cbb280]">
     </div>
-    <div class="form-group">
-        <input type="text" id="ucapan" placeholder="Ucapan Dan Doa Restu" required>
+    <div class="mb-[15px]">
+        <input type="text" id="ucapan" placeholder="Ucapan Dan Doa Restu" required class="w-full p-[12px] border border-[#e0d0b8] rounded-[8px] bg-white text-[14px] box-border outline-none focus:border-[#cbb280]">
     </div>
-    <div class="form-group mb-4 w-full">
-        <select id="konfir" class="waci_comment wdp-select" name="konfirmasi" required style="width: 100%; padding: 12px; border: 1px solid #e0d0b8; border-radius: 8px; background-color: #fff; font-size: 14px; color: #333; outline: none; box-sizing: border-box;">
+    <div class="mb-4 w-full">
+        <select id="konfir" name="konfirmasi" required class="w-full p-[12px] border border-[#e0d0b8] rounded-[8px] bg-white text-[14px] text-[#333] box-border outline-none focus:border-[#cbb280]">
             <option value="" disabled selected>Konfirmasi Kehadiran (attendance)</option>
             <option value="Hadir (accept with pleasure)">Hadir (accept with pleasure)</option>
             <option value="Tidak hadir (decline with regret)">Tidak hadir (decline with regret)</option>
         </select>
     </div>
-    <button id="btnKirim">Kirimkan Ucapan</button>
-    <hr style="border: 0; border-top: 1px solid #eee; margin: 25px 0;">
-    <div class="ucapan-list" id="daftarUcapan"></div>
-    <div style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 20px; font-size: 13px; color: #8a7350;">
-        <button id="btnPrev" class="pagination-btn" disabled>&larr; Previous</button>
+    
+    <button id="btnKirim" class="w-full p-[12px] bg-[#d4b982] hover:bg-[#c1a46d] text-white border-none rounded-[25px] text-[16px] font-bold cursor-pointer transition-colors duration-300">Kirimkan Ucapan</button>
+    
+    <hr class="border-0 border-t border-gray-200 my-[25px]">
+    
+    <div class="max-h-[400px] overflow-y-auto pr-[5px]" id="daftarUcapan"></div>
+    
+    <div class="flex justify-center items-center gap-[15px] mt-[20px] text-[13px] text-[#8a7350]">
+        <button id="btnPrev" class="px-[12px] py-[5px] border border-[#e0d0b8] bg-white text-[#8a7350] rounded-[6px] text-[13px] font-normal w-auto cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed" disabled>&larr; Previous</button>
         <span id="pageInfo">1</span>
-        <button id="btnNext" class="pagination-btn">Next &rarr;</button>
+        <button id="btnNext" class="px-[12px] py-[5px] border border-[#e0d0b8] bg-white text-[#8a7350] rounded-[6px] text-[13px] font-normal w-auto cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed">Next &rarr;</button>
     </div>
 </div>
 
@@ -248,11 +79,9 @@
     let pageHistory = [];  
     let currentPageIndex = 0;
 
-    // FUNGSI UNTUK MENGULID (CONVERT) SELISIH WAKTU KE TEKS "X MENIT LALU"
     function formatWaktu(timestamp) {
         if (!timestamp) return "baru saja";
         
-        // Mengubah Firestore Timestamp menjadi objek waktu JavaScript biasa
         const dateKirim = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
         const sekarang = new Date();
         const selisihDetik = Math.floor((sekarang - dateKirim) / 1000);
@@ -302,7 +131,7 @@
             daftarUcapan.innerHTML = "";
 
             if (snapshot.empty) {
-                daftarUcapan.innerHTML = "<p style='text-align:center; font-size:13px; color:#999;'>Belum ada ucapan di halaman ini.</p>";
+                daftarUcapan.innerHTML = "<p class='text-center text-[13px] text-gray-400'>Belum ada ucapan di halaman ini.</p>";
                 btnNext.disabled = true;
                 return;
             }
@@ -310,25 +139,26 @@
             snapshot.forEach((doc) => {
                 const data = doc.data();
                 
-                // Menentukan class warna badge berdasarkan pilihan kehadiran
                 const isHadir = data.konfir && data.konfir.includes("Hadir");
-                const badgeClass = isHadir ? "badge-hadir" : "badge-tidak-hadir";
+                // Migrasi class warna badge dinamis ke Tailwind
+                const badgeClass = isHadir ? "bg-[#8a7655]" : "bg-[#a38260]";
 
                 const card = document.createElement('div');
-                card.className = 'ucapan-card';
+                // Migrasi style card ke Tailwind Utility
+                card.className = 'flex items-start mb-5 border-bottom border-[#f0e6d2] pb-[15px] last:border-b-0 animate-[fadeIn_0.5s_ease]';
                 card.innerHTML = `
-                    <div class="avatar">
+                    <div class="w-10 h-10 bg-[#e8dcbf] rounded-full flex justify-center items-center text-[#8a7350] text-[18px] mr-3 shrink-0">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
                             <path d="M0 0h24v24H0z" fill="none" />
                             <path fill="currentColor" d="M12 3c5.5 0 10 3.58 10 8s-4.5 8-10 8c-1.24 0-2.43-.18-3.53-.5C5.55 21 2 21 2 21c2.33-2.33 2.7-3.9 2.75-4.5C3.05 15.07 2 13.13 2 11c0-4.42 4.5-8 10-8" />
                         </svg>
                     </div>
-                    <div class="bubble">
-                        <div class="nama-tamu">
+                    <div class="grow">
+                        <div class="font-bold text-[14px] text-[#4a3f31] flex items-center flex-wrap gap-2">
                             ${escapeHTML(data.nama)} 
-                            <span class="badge-konfir ${badgeClass}">✓ ${escapeHTML(data.konfir || 'Hadir')}</span>
+                            <span class="text-[11px] font-normal px-2 py-[2px] rounded-[4px] text-white inline-flex items-center gap-1 ${badgeClass}">✓ ${escapeHTML(data.konfir || 'Hadir')}</span>
                         </div>
-                        <div class="waktu-kirim">
+                        <div class="text-[11px] text-[#998467] flex items-center gap-1 mt-[2px] mb-1.5">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
                                 <path d="M0 0h24v24H0z" fill="none" />
                                 <path fill="currentColor" d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,20a9,9,0,1,1,9-9A9,9,0,0,1,12,21Z" />
@@ -341,7 +171,7 @@
                             </svg>
                             ${formatWaktu(data.timestamp)}
                         </div>
-                        <div class="isi-ucapan">${escapeHTML(data.ucapan)}</div>
+                        <div class="text-[13px] text-gray-600 break-all leading-[1.4]">${escapeHTML(data.ucapan)}</div>
                     </div>
                 `;
                 daftarUcapan.appendChild(card);
@@ -392,7 +222,7 @@
                 nama: nama,
                 ucapan: ucapan,
                 konfir: konfir,
-                timestamp: new Date() // Menyimpan waktu kirim saat ini
+                timestamp: new Date()
             });
 
             namaInput.value = "";
